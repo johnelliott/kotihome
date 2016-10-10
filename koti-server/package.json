@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "start:dev": "NODE_ENV=development node index.js",
-    "start:prod": "NODE_ENV=production node index.js"
+    "start:prod": "NODE_ENV=production node index.js",
+    "start:webpack": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.live.js --open"
   },
   "author": "Artur Paikin, http://arturpaikin.com",
   "license": "ISC",
