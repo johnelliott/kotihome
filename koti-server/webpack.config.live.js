@@ -22,7 +22,7 @@ module.exports = {
     proxy: {
       // https://github.com/nodejitsu/node-http-proxy#options
       // proxy anything that's not a static asset
-      '!/**/*.{css,js,hot-update.json}': {
+      '!/**/*{.css,bundle.js,.hot-update.json}': {
         target: 'http://localhost:3500', // port number from express-app.js
         secure: false
         // changeOrigin: false,
