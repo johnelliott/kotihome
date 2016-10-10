@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import express from 'express';
 import helmet from 'helmet';
-import webpack from 'webpack';
+// import webpack from 'webpack';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import RedisStore from 'connect-redis';
@@ -11,7 +11,7 @@ import telegram from './telegram';
 import mqttServ from './mqtt-broker';
 
 let isProduction = process.env.NODE_ENV === 'production';
-let webpackConfig = isProduction ? require('../webpack.config.prod') : require('../webpack.config.dev');
+// let webpackConfig = isProduction ? require('../webpack.config.prod') : require('../webpack.config.dev');
 
 // if (isProduction) {
 //   webpackConfig = require('../webpack.config.prod');
@@ -21,7 +21,7 @@ let webpackConfig = isProduction ? require('../webpack.config.prod') : require('
 
 export default function(controller, robot) {
 
-  let compiler = webpack(webpackConfig);
+  // let compiler = webpack(webpackConfig);
 
   let app = express();
   app.use(helmet());
@@ -51,14 +51,16 @@ export default function(controller, robot) {
     app.use(sessionMiddleware);
   }
 
-  // use react hot realoading in development only
-  if (!isProduction) {
-    app.use(require('webpack-hot-middleware')(compiler));
-    app.use(require('webpack-dev-middleware')(compiler, {
-      noInfo: true,
-      publicPath: webpackConfig.output.publicPath
-    }));
-  }
+  // Now this is not required because the stuff is handled by running the webpack-dev-middleware express server on 3501
+  //
+  // // use react hot realoading in development only
+  // if (!isProduction) {
+  //   app.use(require('webpack-hot-middleware')(compiler));
+  //   app.use(require('webpack-dev-middleware')(compiler, {
+  //     noInfo: true,
+  //     publicPath: webpackConfig.output.publicPath
+  //   }));
+  // }
 
   function checkAuth(req, res, next) {
     if (!isProduction) return next();
